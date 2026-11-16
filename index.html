@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>P2626 Loop de glicerina</title>
+<meta name="description" content="Portal del proyecto P2626: cronograma, entregables, área técnica y documentos de la ingeniería básica del loop de glicerina USP para KENVUE.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>/* Portal del proyecto P2626 — lenguaje visual inspirado en la marca de Anthropic
+   (paleta crema/tinta/terracota, Poppins en títulos, Lora en texto).
+   Paleta de gráficas validada con la skill dataviz (light #faf9f5, dark #1f1e1b). */
+
+:root {
+  --bg: #faf9f5;
+  --surface: #ffffff;
+  --surface-2: #f0eee6;
+  --line: #e8e6dc;
+  --ink: #141413;
+  --ink-2: #3d3d3a;
+  --muted: #6b6a62;
+  --accent: #c96442;
+  --link: #9a4529;
+  --c1: #c96442;
+  --c2: #3e7cb8;
+  --c3: #5f7f2e;
+  --ok: #3f6b2a;
+  --ok-bg: #e6eedc;
+  --run: #2f6aa3;
+  --run-bg: #e1ebf5;
+  --warn: #9a4529;
+  --warn-bg: #f6e3da;
+  --idle: #6b6a62;
+  --idle-bg: #ecebe4;
+  --band-1: #e3ecd6;
+  --band-2: #f5e7c8;
+  --band-3: #f1cdbd;
+  --band-4: #e2a08a;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(20, 20, 19, .04), 0 8px 24px rgba(20, 20, 19, .05);
+  --font-head: "Poppins", Arial, sans-serif;
+  --font-body: "Lora", Georgia, serif;
+  --max: 1180px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1e1b; --surface: #262522; --surface-2: #2e2d29; --line: #3a3934;
+    --ink: #f4f2ea; --ink-2: #d9d6cc; --muted: #a8a59a;
+    --accent: #d4714f; --link: #ec9a7c;
+    --c1: #d4714f; --c2: #4f8bcb; --c3: #789640;
+    --ok: #a9c98a; --ok-bg: #2c3524; --run: #8dbbe6; --run-bg: #23303d;
+    --warn: #ec9a7c; --warn-bg: #3b2a23; --idle: #a8a59a; --idle-bg: #2e2d29;
+    --band-1: #2f3a26; --band-2: #463d26; --band-3: #4d3328; --band-4: #6a3a2a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1e1b; --surface: #262522; --surface-2: #2e2d29; --line: #3a3934;
+  --ink: #f4f2ea; --ink-2: #d9d6cc; --muted: #a8a59a;
+  --accent: #d4714f; --link: #ec9a7c;
+  --c1: #d4714f; --c2: #4f8bcb; --c3: #789640;
+  --ok: #a9c98a; --ok-bg: #2c3524; --run: #8dbbe6; --run-bg: #23303d;
+  --warn: #ec9a7c; --warn-bg: #3b2a23; --idle: #a8a59a; --idle-bg: #2e2d29;
+  --band-1: #2f3a26; --band-2: #463d26; --band-3: #4d3328; --band-4: #6a3a2a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.65 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .eyebrow, nav, .btn, th, .chip, .kpi-label, .kpi-value, .meta, footer {
+  font-family: var(--font-head);
+}
+h1 { font-size: clamp(2rem, 4.2vw, 3.3rem); line-height: 1.12; font-weight: 600; letter-spacing: -.02em; margin: .2em 0 .35em; }
+h2 { font-size: clamp(1.55rem, 2.6vw, 2.1rem); line-height: 1.2; font-weight: 600; letter-spacing: -.01em; margin: 0 0 .3em; }
+h3 { font-size: 1.12rem; font-weight: 600; margin: 0 0 .5em; }
+p { margin: 0 0 1em; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+.eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.lede { font-size: 1.18rem; color: var(--ink-2); max-width: 46rem; }
+.muted { color: var(--muted); }
+.small { font-size: .88rem; }
+
+/* Barra superior */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .wrap { display: flex; align-items: center; gap: 20px; height: 64px; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); flex-shrink: 0; }
+.brand img { height: 30px; width: auto; display: block; }
+.brand .sep { width: 1px; height: 26px; background: var(--line); }
+.brand .kv { border-radius: 4px; }
+nav { margin-left: auto; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+nav::-webkit-scrollbar { display: none; }
+nav a {
+  font-size: .86rem; font-weight: 500; color: var(--ink-2); text-decoration: none;
+  padding: 8px 12px; border-radius: 999px; white-space: nowrap;
+}
+nav a:hover, nav a.active { background: var(--surface-2); color: var(--ink); }
+.theme-btn {
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  border-radius: 999px; width: 36px; height: 36px; cursor: pointer; flex-shrink: 0;
+  font-size: 1rem; line-height: 1;
+}
+
+/* Portada */
+.hero { padding: 72px 0 40px; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: .9rem; color: var(--muted); margin-top: 18px; }
+.hero .meta b { color: var(--ink); font-weight: 600; }
+
+section { padding: 64px 0; border-top: 1px solid var(--line); }
+.section-head { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 28px; max-width: 52rem; }
+
+/* Tarjetas y KPI */
+.grid { display: grid; gap: 18px; }
+.g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 22px 22px 20px; box-shadow: var(--shadow);
+}
+.kpi-label { font-size: .8rem; font-weight: 500; color: var(--muted); letter-spacing: .02em; }
+.kpi-value { font-size: 2rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.15; margin: 6px 0 4px; }
+.kpi-value small { font-size: .95rem; font-weight: 500; color: var(--muted); margin-left: 4px; }
+.kpi-note { font-size: .9rem; color: var(--ink-2); margin: 0; }
+.card h3 + p { color: var(--ink-2); }
+
+/* Chips de estado: icono + texto, nunca solo color */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: .76rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+}
+.chip::before { font-size: .8rem; }
+.st-ok { color: var(--ok); background: var(--ok-bg); } .st-ok::before { content: "✓"; }
+.st-run { color: var(--run); background: var(--run-bg); } .st-run::before { content: "◐"; }
+.st-warn { color: var(--warn); background: var(--warn-bg); } .st-warn::before { content: "!"; }
+.st-idle { color: var(--idle); background: var(--idle-bg); } .st-idle::before { content: "○"; }
+.st-na { color: var(--idle); background: var(--idle-bg); } .st-na::before { content: "–"; }
+
+/* Tablas estilo editorial: líneas horizontales, sin verticales */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+caption { text-align: left; padding: 14px 18px 0; font-family: var(--font-head); font-size: .82rem; color: var(--muted); }
+th { text-align: left; font-size: .76rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); padding: 14px 18px 10px; border-bottom: 1px solid var(--line); }
+td { padding: 12px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: var(--surface-2); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.code { font-family: var(--font-head); font-size: .85rem; font-weight: 500; white-space: nowrap; }
+
+/* Filtros */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.btn {
+  font-size: .84rem; font-weight: 500; border: 1px solid var(--line); background: var(--surface);
+  color: var(--ink-2); border-radius: 999px; padding: 7px 14px; cursor: pointer;
+}
+.btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Barras de avance */
+.progress { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; margin: 10px 0 6px; }
+.progress span { display: block; height: 100%; background: var(--c1); border-radius: 999px; }
+
+/* Gráficas SVG */
+.scroll-x { overflow-x: auto; }
+@media (max-width: 720px) { .scroll-x .chart { min-width: 760px; } }
+.chart { width: 100%; height: auto; display: block; font-family: var(--font-head); }
+.chart text { fill: var(--muted); font-size: 11px; }
+.chart .t-ink { fill: var(--ink); }
+.chart .grid-line { stroke: var(--line); stroke-width: 1; }
+.chart .today { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 4; }
+.chart .bar { fill: var(--c2); }
+.chart .bar-done { fill: var(--c3); }
+.chart .ms { stroke: var(--surface); stroke-width: 2; }
+.chart .ms-ok { fill: var(--ok); } .chart .ms-run { fill: var(--run); }
+.chart .ms-warn { fill: var(--warn); } .chart .ms-idle { fill: var(--idle); }
+.chart g.hit:hover rect, .chart g.hit:hover circle, .chart g.hit:hover path { opacity: .8; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-family: var(--font-head); font-size: .82rem; color: var(--ink-2); margin-top: 12px; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+/* Matriz de riesgo */
+.risk { display: grid; grid-template-columns: 26px repeat(5, 1fr); gap: 4px; font-family: var(--font-head); }
+.risk .cell {
+  aspect-ratio: 1.35; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 1.05rem; font-weight: 600; color: var(--ink); position: relative;
+}
+.risk .cell small { font-size: .62rem; font-weight: 500; color: var(--ink-2); }
+.risk .cell.empty { color: transparent; }
+.risk .b1 { background: var(--band-1); } .risk .b2 { background: var(--band-2); }
+.risk .b3 { background: var(--band-3); } .risk .b4 { background: var(--band-4); }
+.risk .ax { font-size: .72rem; color: var(--muted); display: flex; align-items: center; justify-content: center; }
+.risk-title { font-family: var(--font-head); font-weight: 600; margin: 0 0 10px; }
+
+/* Documentos */
+.doc { display: flex; gap: 14px; align-items: flex-start; text-decoration: none; color: inherit; }
+.doc .ext {
+  flex-shrink: 0; width: 46px; height: 54px; border-radius: 8px; display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 8px; font-family: var(--font-head); font-size: .7rem; font-weight: 700; color: #fff; background: var(--c2);
+}
+.doc .ext.pdf { background: var(--c1); } .doc .ext.xlsx { background: var(--c3); }
+.doc .t { font-weight: 500; line-height: 1.35; display: block; margin: 2px 0 4px; }
+.card.doc-card:hover { border-color: var(--accent); }
+
+/* Pie */
+footer { border-top: 1px solid var(--line); padding: 40px 0 56px; font-size: .86rem; color: var(--muted); }
+footer .cols { display: flex; flex-wrap: wrap; gap: 24px 48px; justify-content: space-between; }
+footer b { color: var(--ink); font-weight: 600; }
+.notice { margin-top: 22px; padding: 14px 18px; border-radius: 10px; background: var(--surface-2); color: var(--ink-2); font-size: .84rem; }
+
+@media (max-width: 960px) {
+  .g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g-3 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 16px; }
+  .g-4, .g-2 { grid-template-columns: minmax(0, 1fr); }
+  .card { min-width: 0; }
+  .brand .kv, .brand .sep { display: none; }
+  nav a { padding: 8px 9px; }
+  section { padding: 48px 0; }
+  .hero { padding: 48px 0 24px; }
+}
+@media print {
+  .topbar, .filters, .theme-btn { display: none; }
+  section { break-inside: avoid-page; padding: 28px 0; }
+  .card { box-shadow: none; }
+  a { color: var(--ink); }
+}
+</style>
+</head>
+<body>
+<a class="sr-only" href="#resumen" style="position:absolute;left:-9999px">Saltar al contenido</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Inicio del portal">
+      <img src="assets/dml.png" alt="DML Ingenieros Consultores SAS" width="80" height="30">
+      <span class="sep" aria-hidden="true"></span>
+      <img class="kv" src="assets/kenvue.png" alt="KENVUE" width="93" height="23" style="height:23px">
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#resumen">Resumen</a>
+      <a href="#cronograma">Cronograma</a>
+      <a href="#entregables">Entregables</a>
+      <a href="#tecnica">Área técnica</a>
+      <a href="#documentos">Documentos</a>
+      <a href="#solicitudes">Solicitudes</a>
+      <a href="#reuniones">Reuniones</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="theme-btn" id="theme" type="button" aria-label="Cambiar entre modo claro y oscuro">◑</button>
+  </div>
+</header>
+
+<main id="top">
+<div class="wrap hero">
+  <div class="eyebrow">Proyecto P2626 · Ingeniería básica presupuestal · Procesos</div>
+  <h1>Loop de almacenamiento y dosificación de glicerina USP</h1>
+  <p class="lede">Portal de seguimiento de la ingeniería básica para KENVUE en Yumbo, Valle del Cauca, Colombia. Reúne el cronograma, los entregables, los resultados técnicos de procesos y los documentos emitidos, leídos de las bases de diseño y del listado de documentos del proyecto.</p>
+  <div class="meta">
+    <span><b>Cliente</b> KENVUE</span>
+    <span><b>Ingeniería</b> DML Ingenieros Consultores SAS</span>
+    <span><b>Avance de cronograma</b> 80 %</span>
+    <span><b>Actualizado</b> 16/11/2026</span>
+  </div>
+</div>
+
+<!-- 1. Resumen -->
+<section id="resumen">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">01 · Resumen</div>
+      <h2>Qué se diseña y con qué bases</h2>
+      <p class="muted">Cifras de gobierno del diseño, calculadas a partir de las bases de diseño congeladas.</p>
+    </div>
+    <div class="grid g-4">
+      
+      <div class="card">
+        <div class="kpi-label">Dosis gobernante</div>
+        <div class="kpi-value">650<small>kg</small></div>
+        <p class="kpi-note">en 7 min, una dosificación a la vez</p>
+      </div>
+      
+      <div class="card">
+        <div class="kpi-label">Caudal de dosificación</div>
+        <div class="kpi-value">4,484<small>m³/h</small></div>
+        <p class="kpi-note">a 50 °C (ρ = 1.242,4 kg/m³)</p>
+      </div>
+      
+      <div class="card">
+        <div class="kpi-label">Puntos de uso</div>
+        <div class="kpi-value">19<small></small></div>
+        <p class="kpi-note">16 activos, 2 sin consumo actual y 1 POU de recipientes</p>
+      </div>
+      
+      <div class="card">
+        <div class="kpi-label">Almacenamiento</div>
+        <div class="kpi-value">2 × 35<small>t</small></div>
+        <p class="kpi-note">autonomía de 17,0 días con el retiro promedio</p>
+      </div>
+      
+    </div>
+    <div class="grid g-3" style="margin-top:18px">
+      
+      <div class="card"><h3>Circuito caliente con retorno</h3><p class="small">Control de presión en puntos de uso, estabilidad térmica, medición diferencial y limpieza de la red; no se justifica por ahorro energético</p></div>
+      
+      <div class="card"><h3>Tubería sanitaria ASME BPE</h3><p class="small">Suministro y retorno de 3 in, SS316L, diámetro interior 72,9 mm, acabado SF1.</p></div>
+      
+      <div class="card"><h3>Una bomba por servicio</h3><p class="small">P-1001 de lóbulos con VFD para glicerina y una bomba de agua caliente, ambas 1 × 100 % sin reserva instalada.</p></div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- 2. Cronograma -->
+<section id="cronograma">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">02 · Cronograma</div>
+      <h2>Hitos y línea de tiempo</h2>
+      <p class="muted">Programa de la oferta (P2626-DI-CR-000 Rev 0 (19/01/2026)), del 21/09/2026 al 30/11/2026. La línea discontinua marca la fecha de actualización; el estado de cada hito se basa en la evidencia documental disponible.</p>
+    </div>
+    <div class="card">
+      <div class="scroll-x"><svg class="chart" viewBox="0 0 1100 374" role="img" aria-label="Línea de tiempo del proyecto"><line class="grid-line" x1="250.0" y1="40" x2="250.0" y2="348"/><text x="250.0" y="366" text-anchor="middle">21/09</text><line class="grid-line" x1="333.0" y1="40" x2="333.0" y2="348"/><text x="333.0" y="366" text-anchor="middle">28/09</text><line class="grid-line" x1="416.0" y1="40" x2="416.0" y2="348"/><text x="416.0" y="366" text-anchor="middle">05/10</text><line class="grid-line" x1="499.0" y1="40" x2="499.0" y2="348"/><text x="499.0" y="366" text-anchor="middle">12/10</text><line class="grid-line" x1="582.0" y1="40" x2="582.0" y2="348"/><text x="582.0" y="366" text-anchor="middle">19/10</text><line class="grid-line" x1="665.0" y1="40" x2="665.0" y2="348"/><text x="665.0" y="366" text-anchor="middle">26/10</text><line class="grid-line" x1="748.0" y1="40" x2="748.0" y2="348"/><text x="748.0" y="366" text-anchor="middle">02/11</text><line class="grid-line" x1="831.0" y1="40" x2="831.0" y2="348"/><text x="831.0" y="366" text-anchor="middle">09/11</text><line class="grid-line" x1="914.0" y1="40" x2="914.0" y2="348"/><text x="914.0" y="366" text-anchor="middle">16/11</text><line class="grid-line" x1="997.0" y1="40" x2="997.0" y2="348"/><text x="997.0" y="366" text-anchor="middle">23/11</text><line class="grid-line" x1="1080.0" y1="40" x2="1080.0" y2="348"/><text x="1080.0" y="366" text-anchor="middle">30/11</text><g class="hit"><title>1. Orden de compra — 22/09/2026 — cumplido</title><rect x="249.85714285714283" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-ok" d="M261.9 24 L269.9 32 L261.9 40 L253.9 32 Z"/><text class="t-ink" x="261.9" y="19" text-anchor="middle">1</text></g><g class="hit"><title>2. Reunión de inicio — 24/09/2026 — sin registro</title><rect x="273.57142857142856" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-idle" d="M285.6 24 L293.6 32 L285.6 40 L277.6 32 Z"/><text class="t-ink" x="285.6" y="19" text-anchor="middle">2</text></g><g class="hit"><title>3. Enrolamiento del equipo DML — 25/09/2026 — sin registro</title><rect x="285.42857142857144" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-idle" d="M297.4 24 L305.4 32 L297.4 40 L289.4 32 Z"/><text class="t-ink" x="297.4" y="19" text-anchor="middle">3</text></g><g class="hit"><title>4. Recepción del 100 % de la información del cliente — 28/09/2026 — pendiente</title><rect x="321.0" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-warn" d="M333.0 24 L341.0 32 L333.0 40 L325.0 32 Z"/><text class="t-ink" x="333.0" y="19" text-anchor="middle">4</text></g><g class="hit"><title>5. Trabajo en campo y puntos de muestreo — 02/10/2026 — sin registro</title><rect x="368.42857142857144" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-idle" d="M380.4 24 L388.4 32 L380.4 40 L372.4 32 Z"/><text class="t-ink" x="380.4" y="19" text-anchor="middle">5</text></g><g class="hit"><title>6. Balances de masa y energía — 05/10/2026 — cumplido</title><rect x="404.0" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-ok" d="M416.0 24 L424.0 32 L416.0 40 L408.0 32 Z"/><text class="t-ink" x="416.0" y="19" text-anchor="middle">6</text></g><g class="hit"><title>7. Hojas de datos de equipos rotativos y estáticos — 15/10/2026 — en curso</title><rect x="522.5714285714286" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-run" d="M534.6 24 L542.6 32 L534.6 40 L526.6 32 Z"/><text class="t-ink" x="534.6" y="19" text-anchor="middle">7</text></g><g class="hit"><title>8. P&amp;ID y layout Rev 0 — 20/10/2026 — pendiente</title><rect x="581.8571428571429" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-warn" d="M593.9 24 L601.9 32 L593.9 40 L585.9 32 Z"/><text class="t-ink" x="593.9" y="19" text-anchor="middle">8</text></g><g class="hit"><title>9. Informe de estudio de suelos — 02/11/2026 — otra especialidad</title><rect x="736.0" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-idle" d="M748.0 24 L756.0 32 L748.0 40 L740.0 32 Z"/><text class="t-ink" x="748.0" y="19" text-anchor="middle">9</text></g><g class="hit"><title>10. P&amp;ID y layout finales — 14/11/2026 — pendiente</title><rect x="878.2857142857143" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-warn" d="M890.3 24 L898.3 32 L890.3 40 L882.3 32 Z"/><text class="t-ink" x="890.3" y="19" text-anchor="middle">10</text></g><g class="hit"><title>11. Entrega de ingeniería básica Rev 0 — 21/11/2026 — en curso</title><rect x="961.2857142857143" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-run" d="M973.3 24 L981.3 32 L973.3 40 L965.3 32 Z"/><text class="t-ink" x="973.3" y="19" text-anchor="middle">11</text></g><g class="hit"><title>12. Ajustes de la ingeniería básica — 25/11/2026 — programado</title><rect x="1008.7142857142857" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-idle" d="M1020.7 24 L1028.7 32 L1020.7 40 L1012.7 32 Z"/><text class="t-ink" x="1020.7" y="19" text-anchor="middle">12</text></g><g class="hit"><title>13. Entrega final de ingenierías — 29/11/2026 — programado</title><rect x="1056.142857142857" y="10" width="24" height="44" fill="transparent"/><path class="ms ms-idle" d="M1068.1 24 L1076.1 32 L1068.1 40 L1060.1 32 Z"/><text class="t-ink" x="1068.1" y="19" text-anchor="middle">13</text></g><text class="t-ink" x="0" y="85" style="font-size:12.5px">Plan del proyecto</text><g class="hit"><title>Plan del proyecto: 22/09 a 24/09</title><rect x="261.9" y="72" width="23.7" height="18" rx="4" class="bar-done"/></g><text class="t-ink" x="0" y="115" style="font-size:12.5px">Recepción y revisión de información</text><g class="hit"><title>Recepción y revisión de información: 22/09 a 07/10</title><rect x="261.9" y="102" width="177.9" height="18" rx="4" class="bar-done"/></g><text class="t-ink" x="0" y="145" style="font-size:12.5px">Elaboración de bases de diseño</text><g class="hit"><title>Elaboración de bases de diseño: 22/09 a 02/10</title><rect x="261.9" y="132" width="118.6" height="18" rx="4" class="bar-done"/></g><text class="t-ink" x="0" y="175" style="font-size:12.5px">Diseño de ingeniería básica</text><g class="hit"><title>Diseño de ingeniería básica: 28/09 a 22/11</title><rect x="333.0" y="162" width="652.1" height="18" rx="4" class="bar"/></g><text class="t-ink" x="0" y="205" style="font-size:12.5px">Visita 1: recolección de información</text><g class="hit"><title>Visita 1: recolección de información: 01/10 a 03/10</title><rect x="368.6" y="192" width="23.7" height="18" rx="4" class="bar-done"/></g><text class="t-ink" x="0" y="235" style="font-size:12.5px">Visita 2: recolección de información</text><g class="hit"><title>Visita 2: recolección de información: 16/10 a 18/10</title><rect x="546.4" y="222" width="23.7" height="18" rx="4" class="bar-done"/></g><text class="t-ink" x="0" y="265" style="font-size:12.5px">Visita 3: verificación del diseño</text><g class="hit"><title>Visita 3: verificación del diseño: 31/10 a 05/11</title><rect x="724.3" y="252" width="59.3" height="18" rx="4" class="bar-done"/></g><text class="t-ink" x="0" y="295" style="font-size:12.5px">Revisión del cliente</text><g class="hit"><title>Revisión del cliente: 21/11 a 26/11</title><rect x="973.3" y="282" width="59.3" height="18" rx="4" class="bar"/></g><text class="t-ink" x="0" y="325" style="font-size:12.5px">Ajuste y armado del dossier final</text><g class="hit"><title>Ajuste y armado del dossier final: 25/11 a 30/11</title><rect x="1020.7" y="312" width="59.3" height="18" rx="4" class="bar"/></g><line class="today" x1="914.0" y1="18" x2="914.0" y2="348"/><text x="920.0" y="18" style="fill:var(--accent);font-weight:600">16/11</text></svg></div>
+      <div class="legend">
+        <span><i style="background:var(--c2)"></i>Actividad programada</span>
+        <span><i style="background:var(--c3)"></i>Actividad concluida en el programa</span>
+        <span><i style="background:var(--accent);height:3px;vertical-align:3px"></i>Fecha de actualización</span>
+      </div>
+    </div>
+    <div class="table-wrap" style="margin-top:18px">
+      <table>
+        <caption>Hitos del proyecto y estado según evidencia</caption>
+        <thead><tr><th class="num">N.º</th><th>Fecha</th><th>Hito</th><th>Especialidad</th><th>Estado</th><th>Evidencia</th></tr></thead>
+        <tbody>
+        
+          <tr><td class="num">1</td><td class="num">22/09/2026</td><td>Orden de compra</td><td class="small">Dirección</td>
+          <td><span class="chip st-ok">cumplido</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">2</td><td class="num">24/09/2026</td><td>Reunión de inicio</td><td class="small">Dirección</td>
+          <td><span class="chip st-idle">sin registro</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">3</td><td class="num">25/09/2026</td><td>Enrolamiento del equipo DML</td><td class="small">Dirección</td>
+          <td><span class="chip st-idle">sin registro</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">4</td><td class="num">28/09/2026</td><td>Recepción del 100 % de la información del cliente</td><td class="small">Dirección</td>
+          <td><span class="chip st-warn">pendiente</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">5</td><td class="num">02/10/2026</td><td>Trabajo en campo y puntos de muestreo</td><td class="small">Procesos</td>
+          <td><span class="chip st-idle">sin registro</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">6</td><td class="num">05/10/2026</td><td>Balances de masa y energía</td><td class="small">Procesos</td>
+          <td><span class="chip st-ok">cumplido</span></td><td class="small muted">P2626-PR-CAL-003 a CAL-008, 09/11/2026</td></tr>
+        
+          <tr><td class="num">7</td><td class="num">15/10/2026</td><td>Hojas de datos de equipos rotativos y estáticos</td><td class="small">Procesos</td>
+          <td><span class="chip st-run">en curso</span></td><td class="small muted">P2626-PR-DTS-002 Rev 1 en borrador</td></tr>
+        
+          <tr><td class="num">8</td><td class="num">20/10/2026</td><td>P&amp;ID y layout Rev 0</td><td class="small">Procesos</td>
+          <td><span class="chip st-warn">pendiente</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">9</td><td class="num">02/11/2026</td><td>Informe de estudio de suelos</td><td class="small">Civil</td>
+          <td><span class="chip st-na">otra especialidad</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">10</td><td class="num">14/11/2026</td><td>P&amp;ID y layout finales</td><td class="small">Procesos</td>
+          <td><span class="chip st-warn">pendiente</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">11</td><td class="num">21/11/2026</td><td>Entrega de ingeniería básica Rev 0</td><td class="small">Procesos</td>
+          <td><span class="chip st-run">en curso</span></td><td class="small muted">P2626-PR-INF-001 Rev 0 lista para transmitir</td></tr>
+        
+          <tr><td class="num">12</td><td class="num">25/11/2026</td><td>Ajustes de la ingeniería básica</td><td class="small">Procesos</td>
+          <td><span class="chip st-idle">programado</span></td><td class="small muted"></td></tr>
+        
+          <tr><td class="num">13</td><td class="num">29/11/2026</td><td>Entrega final de ingenierías</td><td class="small">Dirección</td>
+          <td><span class="chip st-idle">programado</span></td><td class="small muted"></td></tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Entregables -->
+<section id="entregables">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">03 · Entregables</div>
+      <h2>Estado de los documentos del proyecto</h2>
+      <p class="muted">Registro maestro de documentos codificados según la norma de documentación de DML. Las filas retiradas o de formato no se cuentan como entregables.</p>
+    </div>
+    <div class="grid g-4" style="margin-bottom:18px">
+      
+      <div class="card">
+        <div class="kpi-label">Informes</div>
+        <div class="kpi-value">1<small>de 1 emitidos</small></div>
+        <div class="progress" role="img" aria-label="1 de 1 emitidos"><span style="width:100%"></span></div>
+      </div>
+      
+      <div class="card">
+        <div class="kpi-label">Memorias de cálculo</div>
+        <div class="kpi-value">6<small>de 6 emitidos</small></div>
+        <div class="progress" role="img" aria-label="6 de 6 emitidos"><span style="width:100%"></span></div>
+      </div>
+      
+      <div class="card">
+        <div class="kpi-label">Presentaciones</div>
+        <div class="kpi-value">2<small>de 3 emitidos</small></div>
+        <div class="progress" role="img" aria-label="2 de 3 emitidos"><span style="width:67%"></span></div>
+      </div>
+      
+      <div class="card">
+        <div class="kpi-label">Hojas de datos</div>
+        <div class="kpi-value">0<small>de 1 emitidos</small></div>
+        <div class="progress" role="img" aria-label="0 de 1 emitidos"><span style="width:0%"></span></div>
+      </div>
+      
+    </div>
+    <div class="filters" role="group" aria-label="Filtrar por tipo">
+      <button class="btn" type="button" data-f="todos" aria-pressed="true">Todos</button>
+      <button class="btn" type="button" data-f="INF" aria-pressed="false">INF</button><button class="btn" type="button" data-f="CAL" aria-pressed="false">CAL</button><button class="btn" type="button" data-f="PRE" aria-pressed="false">PRE</button><button class="btn" type="button" data-f="DTS" aria-pressed="false">DTS</button><button class="btn" type="button" data-f="TR" aria-pressed="false">TR</button>
+    </div>
+    <div class="table-wrap">
+      <table id="tabla-entregables">
+        <thead><tr><th>Código</th><th>Título</th><th class="num">Rev.</th><th class="num">Fecha</th><th>Estado</th></tr></thead>
+        <tbody>
+        
+          <tr data-tipo="PRE"><td class="code">P2626-PR-PRE-001</td><td>Comparativa de escenarios del loop de dosificación de glicerina USP</td><td class="num">0</td><td class="num">13/10/2026</td>
+          <td><span class="chip st-ok">Vigente</span></td></tr>
+        
+          <tr data-tipo="TR"><td class="code">P2626-DI-TR-001</td><td>Transmittal N° 1 — emisión de presentación comparativa de escenarios P2626-PR-PRE-001 Rev. 0</td><td class="num">0</td><td class="num">13/10/2026</td>
+          <td><span class="chip st-ok">Vigente</span></td></tr>
+        
+          <tr data-tipo="PRE"><td class="code">P2626-PR-PRE-002</td><td>Enjuague residuos a PTAR y secado de tubería</td><td class="num">0</td><td class="num">06/11/2026</td>
+          <td><span class="chip st-ok">Vigente</span></td></tr>
+        
+          <tr data-tipo="INF"><td class="code">P2626-PR-INF-001</td><td>Bases de diseño del circuito de glicerina USP</td><td class="num">0</td><td class="num">16/11/2026</td>
+          <td><span class="chip st-ok">Emitido para revisión</span></td></tr>
+        
+          <tr data-tipo="CAL"><td class="code">P2626-PR-CAL-003</td><td>Comparación de escenarios del circuito de glicerina USP</td><td class="num">0</td><td class="num">09/11/2026</td>
+          <td><span class="chip st-ok">Emitido para revisión</span></td></tr>
+        
+          <tr data-tipo="CAL"><td class="code">P2626-PR-CAL-004</td><td>Demanda de dosificación de glicerina USP</td><td class="num">0</td><td class="num">09/11/2026</td>
+          <td><span class="chip st-ok">Emitido para revisión</span></td></tr>
+        
+          <tr data-tipo="CAL"><td class="code">P2626-PR-CAL-006</td><td>Capacidad y niveles de los tanques de glicerina de 35 t</td><td class="num">0</td><td class="num">09/11/2026</td>
+          <td><span class="chip st-ok">Emitido para revisión</span></td></tr>
+        
+          <tr data-tipo="CAL"><td class="code">P2626-PR-CAL-007</td><td>Evaluación hidráulica del circuito y del retorno de glicerina USP</td><td class="num">0</td><td class="num">09/11/2026</td>
+          <td><span class="chip st-ok">Emitido para revisión</span></td></tr>
+        
+          <tr data-tipo="CAL"><td class="code">P2626-PR-CAL-008</td><td>Enjuague residuos a PTAR y secado del circuito de glicerina</td><td class="num">0</td><td class="num">09/11/2026</td>
+          <td><span class="chip st-ok">Emitido para revisión</span></td></tr>
+        
+          <tr data-tipo="CAL"><td class="code">P2626-PR-CAL-001</td><td>Simulación hidráulica AFT Fathom del circuito de glicerina USP</td><td class="num">0</td><td class="num">09/11/2026</td>
+          <td><span class="chip st-ok">Emitido para revisión</span></td></tr>
+        
+          <tr data-tipo="TR"><td class="code">P2626-DI-TR-002</td><td>Transmittal N° 2 — emisión de bases de diseño P2626-PR-INF-001 Rev. 0 en PDF y DOCX</td><td class="num">0</td><td class="num">16/11/2026</td>
+          <td><span class="chip st-run">Preparado, sin transmitir</span></td></tr>
+        
+          <tr data-tipo="DTS"><td class="code">P2626-PR-DTS-002</td><td>Hoja de datos de bomba de lóbulos P-1001 para glicerina USP</td><td class="num">1</td><td class="num">13/11/2026</td>
+          <td><span class="chip st-run">En proceso</span></td></tr>
+        
+          <tr data-tipo="PRE"><td class="code">P2626-PR-PRE-003</td><td>Alternativas de secado de tubería: red de aire con tanque pulmón y soplador con aire estéril</td><td class="num">0</td><td class="num">15/11/2026</td>
+          <td><span class="chip st-idle">Borrador</span></td></tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Área técnica -->
+<section id="tecnica">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">04 · Área técnica</div>
+      <h2>Cálculos y balances de procesos</h2>
+      <p class="muted">Resultados de las memorias de cálculo emitidas. Cada cifra indica la memoria que la sustenta; los valores se recalculan desde las bases de diseño al generar este portal.</p>
+    </div>
+
+    <div class="grid g-2">
+      <div class="card">
+        <h3>Demanda de dosificación</h3>
+        <p class="small muted">Distribución de dosis por punto activo; una sola dosificación a la vez.</p>
+        <svg class="chart" viewBox="0 0 520 148" role="img" aria-label="Puntos de dosificación por tamaño de dosis"><text class="t-ink" x="0" y="27" style="font-size:13px">30 kg</text><g class="hit"><title>7 puntos de 30 kg: 210 kg por ciclo</title><rect x="92" y="12" width="308.0" height="22" rx="4" class="bar" style="fill:var(--c1)"/></g><text x="410.0" y="28" style="font-size:12.5px">7 puntos · 210 kg</text><text class="t-ink" x="0" y="73" style="font-size:13px">500 kg</text><g class="hit"><title>4 puntos de 500 kg: 2.000 kg por ciclo</title><rect x="92" y="58" width="176.0" height="22" rx="4" class="bar" style="fill:var(--c1)"/></g><text x="278.0" y="74" style="font-size:12.5px">4 puntos · 2.000 kg</text><text class="t-ink" x="0" y="119" style="font-size:13px">650 kg</text><g class="hit"><title>5 puntos de 650 kg: 3.250 kg por ciclo</title><rect x="92" y="104" width="220.0" height="22" rx="4" class="bar" style="fill:var(--c1)"/></g><text x="322.0" y="120" style="font-size:12.5px">5 puntos · 3.250 kg</text></svg>
+      </div>
+      <div class="card">
+        <h3>Puntos de operación de P-1001</h3>
+        <p class="small muted">Bomba de lóbulos sanitaria 1 × 100 % con VFD; glicerina USP a 50 °C.</p>
+        <div class="table-wrap" style="border:0">
+        <table>
+          <thead><tr><th>Condición</th><th class="num">Caudal</th><th class="num">ΔP</th><th class="num">Potencia hidráulica</th></tr></thead>
+          <tbody>
+          <tr><td>Operación máxima</td><td class="num">8,701 m³/h</td><td class="num">8,935 bar</td><td class="num">2,16 kW</td></tr><tr><td>Operación mínima</td><td class="num">4,000 m³/h</td><td class="num">6,225 bar</td><td class="num">0,69 kW</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="small muted" style="margin-top:10px">Presión de especificación 9,0 bar. Curva, NPSHr y potencia se certifican con el fabricante.</p>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:18px">
+      <table>
+        <caption>Balances y resultados principales</caption>
+        <thead><tr><th>Magnitud</th><th class="num">Valor</th><th>Base de cálculo</th><th>Memoria</th></tr></thead>
+        <tbody>
+        <tr><td>Demanda por ciclo completo</td><td class="num">5.460 kg</td><td class="small">Suma de dosis de los puntos activos</td><td class="code">P2626-PR-CAL-004</td></tr><tr><td>Caudal de dosificación</td><td class="num">4,484 m³/h</td><td class="small">Dosis / (ρ · tiempo) a la temperatura de operación</td><td class="code">P2626-PR-CAL-004</td></tr><tr><td>Velocidad de dosificación en 3 in</td><td class="num">0,298 m/s</td><td class="small">Caudal / área interior BPE</td><td class="code">P2626-PR-CAL-007</td></tr><tr><td>Autonomía de almacenamiento</td><td class="num">17,04 d</td><td class="small">Masa de producto de los tanques / retiro diario promedio</td><td class="code">P2626-PR-CAL-006</td></tr><tr><td>Caudal de enjuague de tubería</td><td class="num">22,539 m³/h</td><td class="small">1,5 m/s en 3 in durante 10 min</td><td class="code">P2626-PR-CAL-008</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3>Riesgos de diseño: valoración preliminar HSEQ</h3>
+      <p class="small muted">Veinte escenarios del registro HAZID del informe de bases de diseño. Cada celda indica cuántos escenarios tienen esa severidad (S) y probabilidad (L); la valoración es preliminar de ingeniería y se valida con KENVUE.</p>
+      <div class="grid g-2">
+        
+        <div>
+          <p class="risk-title">Riesgo inicial</p>
+          <div class="risk" role="table" aria-label="Riesgo inicial">
+            
+              <div class="ax" role="rowheader">S5</div>
+              
+              <div class="cell b2 empty" role="cell" title="Sin escenarios — S5 × L1 = 5">·</div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S5 × L2 = 10">·</div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S5 × L3 = 15">·</div>
+              
+              <div class="cell b4 empty" role="cell" title="Sin escenarios — S5 × L4 = 20">·</div>
+              
+              <div class="cell b4 empty" role="cell" title="Sin escenarios — S5 × L5 = 25">·</div>
+              
+            
+              <div class="ax" role="rowheader">S4</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S4 × L1 = 4">·</div>
+              
+              <div class="cell b2 " role="cell" title="H-20 — S4 × L2 = 8">1<small>R 8</small></div>
+              
+              <div class="cell b3 " role="cell" title="H-04, H-07, H-11, H-16, H-19 — S4 × L3 = 12">5<small>R 12</small></div>
+              
+              <div class="cell b4 empty" role="cell" title="Sin escenarios — S4 × L4 = 16">·</div>
+              
+              <div class="cell b4 empty" role="cell" title="Sin escenarios — S4 × L5 = 20">·</div>
+              
+            
+              <div class="ax" role="rowheader">S3</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S3 × L1 = 3">·</div>
+              
+              <div class="cell b2 " role="cell" title="H-12, H-18 — S3 × L2 = 6">2<small>R 6</small></div>
+              
+              <div class="cell b2 " role="cell" title="H-02, H-03, H-05, H-06, H-08, H-09, H-13, H-14, H-15, H-17 — S3 × L3 = 9">10<small>R 9</small></div>
+              
+              <div class="cell b3 " role="cell" title="H-10 — S3 × L4 = 12">1<small>R 12</small></div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S3 × L5 = 15">·</div>
+              
+            
+              <div class="ax" role="rowheader">S2</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S2 × L1 = 2">·</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S2 × L2 = 4">·</div>
+              
+              <div class="cell b2 " role="cell" title="H-01 — S2 × L3 = 6">1<small>R 6</small></div>
+              
+              <div class="cell b2 empty" role="cell" title="Sin escenarios — S2 × L4 = 8">·</div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S2 × L5 = 10">·</div>
+              
+            
+              <div class="ax" role="rowheader">S1</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S1 × L1 = 1">·</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S1 × L2 = 2">·</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S1 × L3 = 3">·</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S1 × L4 = 4">·</div>
+              
+              <div class="cell b2 empty" role="cell" title="Sin escenarios — S1 × L5 = 5">·</div>
+              
+            
+            <div></div><div class="ax">L1</div><div class="ax">L2</div><div class="ax">L3</div><div class="ax">L4</div><div class="ax">L5</div>
+          </div>
+        </div>
+        
+        <div>
+          <p class="risk-title">Riesgo residual</p>
+          <div class="risk" role="table" aria-label="Riesgo residual">
+            
+              <div class="ax" role="rowheader">S5</div>
+              
+              <div class="cell b2 empty" role="cell" title="Sin escenarios — S5 × L1 = 5">·</div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S5 × L2 = 10">·</div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S5 × L3 = 15">·</div>
+              
+              <div class="cell b4 empty" role="cell" title="Sin escenarios — S5 × L4 = 20">·</div>
+              
+              <div class="cell b4 empty" role="cell" title="Sin escenarios — S5 × L5 = 25">·</div>
+              
+            
+              <div class="ax" role="rowheader">S4</div>
+              
+              <div class="cell b1 " role="cell" title="H-20 — S4 × L1 = 4">1<small>R 4</small></div>
+              
+              <div class="cell b2 " role="cell" title="H-04, H-07, H-11, H-16, H-19 — S4 × L2 = 8">5<small>R 8</small></div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S4 × L3 = 12">·</div>
+              
+              <div class="cell b4 empty" role="cell" title="Sin escenarios — S4 × L4 = 16">·</div>
+              
+              <div class="cell b4 empty" role="cell" title="Sin escenarios — S4 × L5 = 20">·</div>
+              
+            
+              <div class="ax" role="rowheader">S3</div>
+              
+              <div class="cell b1 " role="cell" title="H-10, H-12, H-18 — S3 × L1 = 3">3<small>R 3</small></div>
+              
+              <div class="cell b2 " role="cell" title="H-02, H-03, H-05, H-06, H-08, H-09, H-13, H-14, H-15, H-17 — S3 × L2 = 6">10<small>R 6</small></div>
+              
+              <div class="cell b2 empty" role="cell" title="Sin escenarios — S3 × L3 = 9">·</div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S3 × L4 = 12">·</div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S3 × L5 = 15">·</div>
+              
+            
+              <div class="ax" role="rowheader">S2</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S2 × L1 = 2">·</div>
+              
+              <div class="cell b1 " role="cell" title="H-01 — S2 × L2 = 4">1<small>R 4</small></div>
+              
+              <div class="cell b2 empty" role="cell" title="Sin escenarios — S2 × L3 = 6">·</div>
+              
+              <div class="cell b2 empty" role="cell" title="Sin escenarios — S2 × L4 = 8">·</div>
+              
+              <div class="cell b3 empty" role="cell" title="Sin escenarios — S2 × L5 = 10">·</div>
+              
+            
+              <div class="ax" role="rowheader">S1</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S1 × L1 = 1">·</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S1 × L2 = 2">·</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S1 × L3 = 3">·</div>
+              
+              <div class="cell b1 empty" role="cell" title="Sin escenarios — S1 × L4 = 4">·</div>
+              
+              <div class="cell b2 empty" role="cell" title="Sin escenarios — S1 × L5 = 5">·</div>
+              
+            
+            <div></div><div class="ax">L1</div><div class="ax">L2</div><div class="ax">L3</div><div class="ax">L4</div><div class="ax">L5</div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--band-1)"></i>Bajo (1–4)</span>
+        <span><i style="background:var(--band-2)"></i>Moderado (5–9)</span>
+        <span><i style="background:var(--band-3)"></i>Alto (10–15)</span>
+        <span><i style="background:var(--band-4)"></i>Muy alto (16–25)</span>
+      </div>
+      <p class="small" style="margin:14px 0 0">Riesgo inicial máximo 12; residual máximo 8 en H-04, H-07, H-11, H-16, H-19. Ningún escenario queda en la banda muy alta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Documentos -->
+<section id="documentos">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">05 · Documentos</div>
+      <h2>Documentos disponibles</h2>
+      <p class="muted">Solo documentos emitidos o vigentes. Los borradores y los documentos retirados no se publican.</p>
+    </div>
+    <div class="grid g-3">
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-PRE-001.pptx" download>
+        <span class="ext pptx">PPTX</span>
+        <span>
+          <span class="code">P2626-PR-PRE-001 · Rev. 0</span>
+          <span class="t">Comparativa de escenarios del loop de dosificación de glicerina USP</span>
+          <span class="small muted">13/10/2026 · 699 kB</span>
+        </span>
+      </a>
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-PRE-002.pptx" download>
+        <span class="ext pptx">PPTX</span>
+        <span>
+          <span class="code">P2626-PR-PRE-002 · Rev. 0</span>
+          <span class="t">Enjuague residuos a PTAR y secado de tubería</span>
+          <span class="small muted">06/11/2026 · 146 kB</span>
+        </span>
+      </a>
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-INF-001.pdf" download>
+        <span class="ext pdf">PDF</span>
+        <span>
+          <span class="code">P2626-PR-INF-001 · Rev. 0</span>
+          <span class="t">Bases de diseño del circuito de glicerina USP</span>
+          <span class="small muted">16/11/2026 · 1,4 MB</span>
+        </span>
+      </a>
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-CAL-003.xlsx" download>
+        <span class="ext xlsx">XLSX</span>
+        <span>
+          <span class="code">P2626-PR-CAL-003 · Rev. 0</span>
+          <span class="t">Comparación de escenarios del circuito de glicerina USP</span>
+          <span class="small muted">09/11/2026 · 103 kB</span>
+        </span>
+      </a>
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-CAL-004.xlsx" download>
+        <span class="ext xlsx">XLSX</span>
+        <span>
+          <span class="code">P2626-PR-CAL-004 · Rev. 0</span>
+          <span class="t">Demanda de dosificación de glicerina USP</span>
+          <span class="small muted">09/11/2026 · 102 kB</span>
+        </span>
+      </a>
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-CAL-006.xlsx" download>
+        <span class="ext xlsx">XLSX</span>
+        <span>
+          <span class="code">P2626-PR-CAL-006 · Rev. 0</span>
+          <span class="t">Capacidad y niveles de los tanques de glicerina de 35 t</span>
+          <span class="small muted">09/11/2026 · 103 kB</span>
+        </span>
+      </a>
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-CAL-007.xlsx" download>
+        <span class="ext xlsx">XLSX</span>
+        <span>
+          <span class="code">P2626-PR-CAL-007 · Rev. 0</span>
+          <span class="t">Evaluación hidráulica del circuito y del retorno de glicerina USP</span>
+          <span class="small muted">09/11/2026 · 103 kB</span>
+        </span>
+      </a>
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-CAL-008.xlsx" download>
+        <span class="ext xlsx">XLSX</span>
+        <span>
+          <span class="code">P2626-PR-CAL-008 · Rev. 0</span>
+          <span class="t">Enjuague residuos a PTAR y secado del circuito de glicerina</span>
+          <span class="small muted">09/11/2026 · 105 kB</span>
+        </span>
+      </a>
+      
+      <a class="card doc-card doc" href="documentos/P2626-PR-CAL-001.xlsx" download>
+        <span class="ext xlsx">XLSX</span>
+        <span>
+          <span class="code">P2626-PR-CAL-001 · Rev. 0</span>
+          <span class="t">Simulación hidráulica AFT Fathom del circuito de glicerina USP</span>
+          <span class="small muted">09/11/2026 · 119 kB</span>
+        </span>
+      </a>
+      
+    </div>
+  </div>
+</section>
+
+<!-- 6. Solicitudes -->
+<section id="solicitudes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">06 · Solicitudes de información</div>
+      <h2>Información requerida al cliente</h2>
+      <p class="muted">Lista de verificación P2626-DI-LI-001 (28/09/2026): 12 de 12 ítems pendientes en la última actualización registrada.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="num">N.º</th><th>Información</th><th>Especialidad</th><th>Responsable</th><th class="num">Solicitud</th><th>Estado</th></tr></thead>
+        <tbody>
+        <tr><td class="num">1</td><td>Ficha Tecnica de la Glicerina</td><td class="small">Proceso</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">2</td><td>Consumos de Tanques en area de Preparacion</td><td class="small">Proceso</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">3</td><td>Norma de Calidad de producto BPM y BPE</td><td class="small">Proceso</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">4</td><td>Planimetria Actuallizada de la planta</td><td class="small">Civil</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">5</td><td>Historicos de Consumos de Glicerina</td><td class="small">Proceso</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">6</td><td>P&amp;ID del sistema de  aceite</td><td class="small">Proceso</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">7</td><td>Plano de elevacion de la zona de graneles con el rack</td><td class="small">Mecanico</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">8</td><td>Dagrama Unifilar de area de graneles</td><td class="small">Electrico</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">9</td><td>Vendor List de equipos</td><td class="small">Direccion</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">10</td><td>Punto de Conexión y estudio de cargabilidad del punto</td><td class="small">Electrico</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">11</td><td>Planos estructurales cuarto de bombas existente</td><td class="small">Electrico</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr><tr><td class="num">12</td><td>Informacion del Switch  seismic</td><td class="small">Civil/Electrico</td><td class="small">Kenvue</td><td class="num">29/09/2026</td><td><span class="chip st-warn">Pendiente</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Reuniones -->
+<section id="reuniones">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">07 · Reuniones</div>
+      <h2>Reuniones de seguimiento</h2>
+      <p class="muted">Reuniones de avance con KENVUE. Las actas se publican cuando se emiten.</p>
+    </div>
+    <div class="grid g-2">
+      
+      <div class="card"><div class="kpi-label">29/10/2026</div><h3 style="margin-top:6px">Reunión de avance de ingeniería N.º 2</h3><p class="small muted" style="margin:0">Acta: borrador interno, no emitida</p></div>
+      
+      <div class="card"><div class="kpi-label">06/11/2026</div><h3 style="margin-top:6px">Reunión de avance de ingeniería</h3><p class="small muted" style="margin:0">Acta: borrador interno; el borrador la numera como N.º 4 y la carpeta como N.º 3</p></div>
+      
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contacto">
+  <div class="wrap">
+    <div class="cols">
+      <div><b>DML Ingenieros Consultores SAS</b><br>Avenida 4B # 45N-42 Cali - Colombia<br>Cel: (+57) 313 597 0503<br>E-mail: <a href="mailto:administrativo@dmlsas.com.co">administrativo@dmlsas.com.co</a></div>
+      <div><b>Equipo del proyecto</b><br>J. Arboleda, elaboró<br>C. Otero, revisó<br>H. Rosero, aprobó<br></div>
+      <div><b>Fuentes del portal</b><br>Bases de diseño del proyecto<br>Listado de documentos<br>Cronograma P2626-DI-CR-000<br>Generado el 16/11/2026</div>
+    </div>
+    <div class="notice">Información técnica del proyecto P2626 preparada por DML para KENVUE. Uso restringido a las partes del proyecto; los documentos válidos son los emitidos con su código y revisión.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement, key = "p2626-tema";
+  try { var t = localStorage.getItem(key); if (t) root.setAttribute("data-theme", t); } catch (e) {}
+  document.getElementById("theme").addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    var nxt = cur === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", nxt);
+    try { localStorage.setItem(key, nxt); } catch (e) {}
+  });
+  var btns = document.querySelectorAll(".filters .btn");
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      btns.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true");
+      var f = b.getAttribute("data-f");
+      document.querySelectorAll("#tabla-entregables tbody tr").forEach(function (tr) {
+        tr.style.display = (f === "todos" || tr.getAttribute("data-tipo") === f) ? "" : "none";
+      });
+    });
+  });
+  var links = document.querySelectorAll("nav a"), secs = [];
+  links.forEach(function (a) { var s = document.querySelector(a.getAttribute("href")); if (s) secs.push([a, s]); });
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) secs.forEach(function (p) { p[0].classList.toggle("active", p[1] === e.target); });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    secs.forEach(function (p) { io.observe(p[1]); });
+  }
+})();
+</script>
+</body>
+</html>
